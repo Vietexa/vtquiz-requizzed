@@ -22,6 +22,11 @@ typedef struct button_array {
     int capacity;
 } button_array;
 
+enum buttons {
+    play, 
+    quit
+};
+
 
 bool button_create(button_array *btn_arr, float pos_x, float pos_y, float width, float height,
  Color btn_color, Color btn_hover_color, char* text, int font_size, Color text_color);

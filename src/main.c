@@ -1,14 +1,11 @@
 
-#include "include/button.h"
 #include "include/init.h"
 #include "include/draw.h"
 #include "include/update.h"
-#include "include/utils.h"
+#include "include/cleanup.h"
 
 #include "raylib.h"
-#include <stdio.h>
 #include <stdlib.h>
-
 
 
 int main(void){
@@ -21,21 +18,13 @@ int main(void){
     
     while (!WindowShouldClose())    
     {
-        if (button_clicked(&ctx->btn_arr->btn[0], get_mouse_coords(ctx))){
-            printf("the button was pressed!\n");
-        }
-        if (button_clicked(&ctx->btn_arr->btn[1], get_mouse_coords(ctx))){
-            printf("the 2nd button was pressed!\n");
-        }
+        update(ctx);
        
         draw(ctx);
        
     }
 
-    UnloadRenderTexture(ctx->init_ctx.target);
-    CloseWindow(); 
-    button_deallocate(ctx->btn_arr);
-    free(ctx);       
+    cleanup(ctx);
    
     return 0;
 }

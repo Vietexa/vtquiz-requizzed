@@ -2,5 +2,4 @@
 
 #include "init.h"
 
-
-void update(app_ctx *ctx);
+void cleanup(app_ctx *ctx);
