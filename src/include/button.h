@@ -32,3 +32,5 @@ bool button_clicked(button *btn, Vector2 mpos);
 
 button *button_allocate(int n, button_array *btn_arr);
 
+void button_deallocate(button_array *btn_arr);
+

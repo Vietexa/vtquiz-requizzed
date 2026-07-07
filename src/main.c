@@ -32,7 +32,9 @@ int main(void){
        
     }
 
+    UnloadRenderTexture(ctx->init_ctx.target);
     CloseWindow(); 
+    button_deallocate(ctx->btn_arr);
     free(ctx);       
    
     return 0;

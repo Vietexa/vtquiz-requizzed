@@ -88,3 +88,8 @@ button *button_allocate(int n, button_array *btn_arr){
     btn_arr->size = 0;
     return btn;
 }
+
+void button_deallocate(button_array *btn_arr){
+    free(btn_arr->btn);
+    free(btn_arr);
+}
