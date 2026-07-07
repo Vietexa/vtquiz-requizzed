@@ -1,22 +1,27 @@
 #include "include/init.h"
 #include "raylib.h"
 #include "include/button.h"
+#include <stdlib.h>
 
 
 void init_app(app_ctx *ctx){
 InitWindow(1920, 1080, "Online Quiz");
-
-    ctx->init_ctx.screen_width = GetScreenWidth();
-    ctx->init_ctx.screen_height = GetScreenHeight();
 
     ToggleFullscreen();
 
     ctx->init_ctx.target = LoadRenderTexture(ctx->init_ctx.virtual_width, ctx->init_ctx.virtual_height);
 
     SetTargetFPS(60);
+
+    ctx->btn_arr = calloc(1, sizeof(button_array));
     
-    button_create(&ctx->button_1, 500, 500,
+    ctx->btn_arr->btn = button_allocate(5, ctx->btn_arr);
+
+    button_create(ctx->btn_arr, 500, 500,
     200, 100, RED, ORANGE, "Hi there!", 20, WHITE);
+
+    button_create(ctx->btn_arr, 1000, 500,
+    200, 100, RED, ORANGE, "What's up?", 20, WHITE);
     
     
     

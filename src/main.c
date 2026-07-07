@@ -21,8 +21,11 @@ int main(void){
     
     while (!WindowShouldClose())    
     {
-        if (button_clicked(&ctx->button_1, get_mouse_coords(ctx))){
+        if (button_clicked(&ctx->btn_arr->btn[0], get_mouse_coords(ctx))){
             printf("the button was pressed!\n");
+        }
+        if (button_clicked(&ctx->btn_arr->btn[1], get_mouse_coords(ctx))){
+            printf("the 2nd button was pressed!\n");
         }
        
         draw(ctx);

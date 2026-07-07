@@ -8,7 +8,8 @@ void draw(app_ctx *ctx){
 
     BeginTextureMode(ctx->init_ctx.target);
         DrawText("Congrats! You created your first window!", 10, 5, 20, WHITE);
-        button_draw(&ctx->button_1);
+        button_draw(&ctx->btn_arr->btn[0]);
+        button_draw(&ctx->btn_arr->btn[1]);
     EndTextureMode();
 
     BeginDrawing();
