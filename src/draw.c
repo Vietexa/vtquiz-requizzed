@@ -8,7 +8,7 @@ void draw_main_menu(app_ctx *ctx){
 
     BeginTextureMode(ctx->init_ctx.target);
         ClearBackground(BLACK);
-        DrawText("Congrats! You created your first window!", 10, 5, 20, WHITE);
+        DrawText("VTQuiz: Requizzed", 850, 300, 35, WHITE);
         button_draw(&ctx->btn_arr_m_menu->btn[button_play],ctx);
         button_draw(&ctx->btn_arr_m_menu->btn[button_quit], ctx);
     EndTextureMode();

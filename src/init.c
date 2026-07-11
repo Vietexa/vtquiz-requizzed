@@ -22,13 +22,13 @@ InitWindow(1920, 1080, "Online Quiz");
     ctx->btn_arr_game->btn = button_allocate(5, ctx->btn_arr_game);
     ctx->btn_arr_m_menu->btn = button_allocate(5, ctx->btn_arr_m_menu);
 
-    button_create(ctx->btn_arr_m_menu, 500, 500,
-    200, 100, RED, ORANGE, "Hi there!", 20, WHITE, main_menu_scene);
+    button_create(ctx->btn_arr_m_menu, 900, 400,
+    200, 100, RED, ORANGE, "Play", 20, WHITE, main_menu_scene);
 
-    button_create(ctx->btn_arr_m_menu, 1000, 500,
-    200, 100, RED, ORANGE, "What's up?", 20, WHITE , main_menu_scene);
+    button_create(ctx->btn_arr_m_menu, 900, 550,
+    200, 100, RED, ORANGE, "Quit", 20, WHITE , main_menu_scene);
 
-    button_create(ctx->btn_arr_game, 500, 500,
+    button_create(ctx->btn_arr_game, 50, 950,
     200, 100, RED, ORANGE, "Go back!", 20, WHITE, game_scene);
     
     

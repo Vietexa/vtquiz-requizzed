@@ -9,6 +9,7 @@ typedef struct init_ctx{
 int virtual_width;
 int virtual_height;
 RenderTexture2D target;
+bool keep_alive;
 } init_ctx_t;
 
 typedef struct scene_ctx_t {
