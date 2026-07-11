@@ -20,7 +20,8 @@ void (*draw_scene)(app_ctx*);
 typedef struct app_ctx {
 init_ctx_t init_ctx;
 scene_ctx_t scene_ctx;
-button_array *btn_arr;
+button_array *btn_arr_game;
+button_array *btn_array_m_menu;
 
 } app_ctx;
 

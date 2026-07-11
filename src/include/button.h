@@ -28,8 +28,8 @@ typedef struct button_array {
 } button_array;
 
 enum buttons {
-    play, 
-    quit
+    button_play, 
+    button_quit
 };
 
 

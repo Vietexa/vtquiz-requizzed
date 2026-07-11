@@ -7,3 +7,4 @@ enum scenes_t {
 };
 
 void scene_select(app_ctx *ctx);
+void change_scene(int number, app_ctx *ctx);

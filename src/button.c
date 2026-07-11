@@ -120,6 +120,10 @@ button *button_allocate(int n, button_array *btn_arr){
 
 
 void button_deallocate(button_array *btn_arr){
+    if (!btn_arr){
     free(btn_arr->btn);
     free(btn_arr);
+    btn_arr = NULL;
+    }
+    
 }

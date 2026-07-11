@@ -16,15 +16,20 @@ InitWindow(1920, 1080, "Online Quiz");
 
     scene_select(ctx);
 
-    ctx->btn_arr = calloc(1, sizeof(button_array));
+    ctx->btn_arr_game = calloc(1, sizeof(button_array));
+    ctx->btn_array_m_menu = calloc(1, sizeof(button_array));
     
-    ctx->btn_arr->btn = button_allocate(5, ctx->btn_arr);
+    ctx->btn_arr_game->btn = button_allocate(5, ctx->btn_arr_game);
+    ctx->btn_array_m_menu->btn = button_allocate(5, ctx->btn_array_m_menu);
 
-    button_create(ctx->btn_arr, 500, 500,
+    button_create(ctx->btn_arr_game, 500, 500,
     200, 100, RED, ORANGE, "Hi there!", 20, WHITE, main_menu_scene);
 
-    button_create(ctx->btn_arr, 1000, 500,
+    button_create(ctx->btn_arr_game, 1000, 500,
     200, 100, RED, ORANGE, "What's up?", 20, WHITE , main_menu_scene);
+
+    button_create(ctx->btn_array_m_menu, 500, 500,
+    200, 100, RED, ORANGE, "Go back!", 20, WHITE, game_scene);
     
     
     
