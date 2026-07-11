@@ -1,4 +1,4 @@
 #pragma once
 #include "init.h"
 
-void draw(app_ctx *ctx);
+void draw_main_menu(app_ctx *ctx);

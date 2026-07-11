@@ -7,7 +7,7 @@ set(BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 add_subdirectory(vendor/raylib)
 
 add_executable(${PROJECT_NAME} src/main.c src/draw.c src/init.c src/update.c src/utils.c
-src/button.c src/cleanup.c)
+src/button.c src/cleanup.c src/scene.c)
 
 if (CMAKE_BUILD_TYPE STREQUAL "Debug")
 target_compile_options(online_quiz PRIVATE -fsanitize=address)

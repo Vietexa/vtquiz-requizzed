@@ -3,4 +3,4 @@
 #include "init.h"
 
 
-void update(app_ctx *ctx);
+void update_main_menu(app_ctx *ctx);

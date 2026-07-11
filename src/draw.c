@@ -4,12 +4,12 @@
 #include "raylib.h"
 
 
-void draw(app_ctx *ctx){
+void draw_main_menu(app_ctx *ctx){
 
     BeginTextureMode(ctx->init_ctx.target);
         DrawText("Congrats! You created your first window!", 10, 5, 20, WHITE);
-        button_draw(&ctx->btn_arr->btn[0]);
-        button_draw(&ctx->btn_arr->btn[1]);
+        button_draw(&ctx->btn_arr->btn[play],ctx);
+        button_draw(&ctx->btn_arr->btn[quit], ctx);
     EndTextureMode();
 
     BeginDrawing();
