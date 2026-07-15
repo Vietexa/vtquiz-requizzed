@@ -21,6 +21,7 @@ void (*draw_scene)(app_ctx*);
 typedef struct app_ctx {
 init_ctx_t init_ctx;
 scene_ctx_t scene_ctx;
+Vector2 mouse_positions;
 button_array *btn_arr_m_menu;
 button_array *btn_arr_game;
 

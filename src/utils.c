@@ -1,4 +1,5 @@
 #include "include/utils.h"
+#include "include/button.h"
 #include "include/init.h"
 #include "raylib.h"
 
@@ -14,4 +15,11 @@ Vector2 get_mouse_coords(app_ctx *ctx){
     };
 
     return mouse_virtual;
+}
+
+void store_mpos(app_ctx *ctx){
+    Vector2 mouse_pos = get_mouse_coords(ctx);
+    
+    ctx->mouse_positions.x = mouse_pos.x;
+    ctx->mouse_positions.y = mouse_pos.y;
 }
