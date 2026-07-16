@@ -1,5 +1,6 @@
 #include "include/cleanup.h"
 #include "include/button.h"
+#include "include/app_context.h"
 #include "include/init.h"
 #include <stdlib.h>
 

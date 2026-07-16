@@ -1,4 +1,5 @@
 #include "include/init.h"
+#include "include/app_context.h"
 #include "include/scene.h"
 #include "raylib.h"
 #include "include/button.h"
@@ -23,13 +24,13 @@ InitWindow(1920, 1080, "Online Quiz");
     ctx->btn_arr_m_menu->btn = button_allocate(5, ctx->btn_arr_m_menu);
 
     button_create(ctx->btn_arr_m_menu, 900, 400,
-    200, 100, RED, ORANGE, "Play", 20, WHITE, main_menu_scene);
+    200, 100, RED, ORANGE, "Play", 20, WHITE, main_menu_scene, 0);
 
     button_create(ctx->btn_arr_m_menu, 900, 550,
-    200, 100, RED, ORANGE, "Quit", 20, WHITE , main_menu_scene);
+    200, 100, RED, ORANGE, "Quit", 20, WHITE , main_menu_scene, 0);
 
     button_create(ctx->btn_arr_game, 50, 950,
-    200, 100, RED, ORANGE, "Go back!", 20, WHITE, game_scene);
+    200, 100, RED, ORANGE, "Go back!", 20, WHITE, game_scene, 0);
     
     
     

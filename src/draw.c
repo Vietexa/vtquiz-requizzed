@@ -1,5 +1,6 @@
 #include "include/draw.h"
 #include "include/button.h"
+#include "include/app_context.h"
 #include "include/init.h"
 #include "raylib.h"
 

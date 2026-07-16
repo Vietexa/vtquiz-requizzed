@@ -1,15 +1,14 @@
 #include "include/button.h"
-
-#include "include/init.h"
+#include "include/app_context.h"
 #include "raylib.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 bool button_create(button_array *btn_arr, float pos_x, float pos_y, float width, float height,
- Color btn_color, Color btn_hover_color, char* text, int font_size, Color text_color, int scene_id)
+ Color btn_color, Color btn_hover_color, char* text, int font_size, Color text_color, int scene_id, int subscene_id)
 {
-int text_capacity = sizeof(btn_arr->btn[btn_arr->size].text);
+size_t text_capacity = sizeof(btn_arr->btn[btn_arr->size].text);
 
 if (text == NULL)
     return false;
@@ -48,6 +47,7 @@ snprintf(btn_arr->btn[btn_arr->size].text, text_capacity,"%s",text );
 btn_arr->btn[btn_arr->size].font_size = font_size;
 btn_arr->btn[btn_arr->size].text_color = text_color;
 btn_arr->btn[btn_arr->size].scene_id = scene_id;
+btn_arr->btn[btn_arr->size].subscene_id = subscene_id;
 btn_arr->btn[btn_arr->size].is_hovered = false;
 btn_arr->btn[btn_arr->size].is_pressed = false;
 
@@ -58,7 +58,7 @@ return true;
 
 void button_draw(button *btn, app_ctx *ctx){
 
-if(btn->scene_id != ctx->scene_ctx.scene_num) return;   
+if(btn->scene_id != ctx->scene_ctx.scene_num || btn->subscene_id != ctx->scene_ctx.subscene_num) return;   
 
 if (btn->is_hovered){
     DrawRectangle(btn->pos_x, btn->pos_y, btn->width, 
@@ -83,7 +83,7 @@ DrawText(btn->text, text_pos_x,
 
 bool button_clicked(button *btn, Vector2 mpos, app_ctx *ctx){
 
-if (btn->scene_id != ctx->scene_ctx.scene_num) return false;
+if(btn->scene_id != ctx->scene_ctx.scene_num || btn->subscene_id != ctx->scene_ctx.subscene_num) return false;   
 
 Rectangle btn_rect = {btn->pos_x, btn->pos_y, btn->width, btn->height};
 

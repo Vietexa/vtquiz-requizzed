@@ -1,6 +1,7 @@
 #include "include/utils.h"
 #include "include/button.h"
 #include "include/init.h"
+#include "include/app_context.h"
 #include "raylib.h"
 
 Vector2 get_mouse_coords(app_ctx *ctx){
