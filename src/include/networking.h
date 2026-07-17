@@ -19,7 +19,6 @@ typedef struct networking_t {
     struct sockaddr_in dest;
     message_buf_t read_buf;
     message_buf_t input_buf;
-    message_buf_t final_packet_buf;
 } networking_t;
 
 void network_init(app_ctx *ctx);

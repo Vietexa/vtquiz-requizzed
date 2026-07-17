@@ -16,10 +16,6 @@ static void alloc_buffer(uv_handle_t* handle, size_t suggested_size, uv_buf_t* b
 static void on_disconnect(uv_handle_t *handle){
     app_ctx *ctx = handle->data;                
 
-    if (ctx->networking_ctx.final_packet_buf.buf){
-        free(ctx->networking_ctx.final_packet_buf.buf);
-        ctx->networking_ctx.final_packet_buf.buf = NULL;
-    }
     
     if (ctx->networking_ctx.input_buf.buf){
         free(ctx->networking_ctx.input_buf.buf);
@@ -38,7 +34,7 @@ static void on_disconnect(uv_handle_t *handle){
     
     if (handle){
     free(handle);
-    handle = NULL;
+    ctx->networking_ctx.socket = NULL;
     }
     
 }
@@ -53,44 +49,50 @@ static void on_write_end(uv_write_t *req, int status) {
     free(req);
 }
 
-static void echo_read(uv_stream_t *server, ssize_t nread, const uv_buf_t* buf) {
+static void read_data(uv_stream_t *server, ssize_t nread, const uv_buf_t *buf)
+{
     app_ctx *ctx = server->data;
 
-    if (nread < 0) {
-        if (nread == UV_EOF) {
-            fprintf(stderr, "server closed connection\n");
-        } 
-        else {
-            fprintf(stderr, "read error: %s\n", uv_strerror((int)nread));
-        }
+    char *read_buf = ctx->networking_ctx.read_buf.buf;
+    int *size = &ctx->networking_ctx.read_buf.size;
+    size_t capacity = ctx->networking_ctx.read_buf.capacity;
 
-        uv_close((uv_handle_t *)server, on_disconnect);
+    if (nread < 0) {
+        fprintf(stderr, "read error: %s\n", uv_strerror((int)nread));
         free(buf->base);
+        uv_close((uv_handle_t *)server, on_disconnect);
         change_scene(main_menu_scene, ctx);
         return;
     }
 
-    if (ctx->networking_ctx.read_buf.size + nread > ctx->networking_ctx.read_buf.capacity){
-        
-        printf("Message is too large! The server is a piece of shit\n");
-        uv_close((uv_handle_t *)server, NULL);
+    if (nread == 0) {
         free(buf->base);
         return;
     }
 
-    memcpy(ctx->networking_ctx.read_buf.buf + ctx->networking_ctx.read_buf.size, buf->base, nread);
-    ctx->networking_ctx.read_buf.size += nread;
-
-    char *newline = memchr(buf->base, '\n', nread);
-
-    if(newline){
-        memcpy(ctx->networking_ctx.final_packet_buf.buf,
-        ctx->networking_ctx.read_buf.buf, ctx->networking_ctx.read_buf.size);
-        printf("%s", ctx->networking_ctx.final_packet_buf.buf);
+    if ((size_t)nread > capacity - *size) {
+        fprintf(stderr, "message too large\n");
+        free(buf->base);
+        uv_close((uv_handle_t *)server, on_disconnect);
+        return;
     }
 
+    memcpy(read_buf + *size, buf->base, (size_t)nread);
+    *size += (size_t)nread;
     free(buf->base);
 
+    char *newline;
+
+    while ((newline = memchr(read_buf, '\n', *size)) != NULL) {
+        size_t message_size = (size_t)(newline - read_buf);
+
+        printf("%.*s\n", (int)message_size, read_buf);
+
+        size_t consumed = message_size + 1;
+        *size -= consumed;
+
+        memmove(read_buf, read_buf + consumed, *size);
+    }
 }
 
 static void on_connect(uv_connect_t *req, int status) {
@@ -112,7 +114,7 @@ uv_write_t *write_request = malloc(sizeof(*write_request));
 uv_write(write_request, tcp, &buffer, 1, on_write_end);
 
 
- uv_read_start((uv_stream_t *)ctx->networking_ctx.socket, alloc_buffer, echo_read);
+ uv_read_start((uv_stream_t *)ctx->networking_ctx.socket, alloc_buffer, read_data);
 }
 
 void network_init(app_ctx *ctx){
@@ -120,10 +122,6 @@ void network_init(app_ctx *ctx){
 printf("running network init...\n");
 
 ctx->networking_ctx.read_buf.buf = calloc(MAX_BUFFER_SIZE, sizeof(char));
-ctx->networking_ctx.read_buf.capacity = MAX_BUFFER_SIZE;
-
-ctx->networking_ctx.final_packet_buf.buf = calloc(MAX_BUFFER_SIZE, sizeof(char));
-ctx->networking_ctx.final_packet_buf.capacity = MAX_BUFFER_SIZE;
 ctx->networking_ctx.read_buf.capacity = MAX_BUFFER_SIZE;
 
 ctx->networking_ctx.loop = uv_default_loop();
@@ -149,6 +147,5 @@ void network_run(app_ctx *ctx){
 }
 
 void network_disconnect(app_ctx *ctx){
-    ctx->networking_ctx.socket->data = ctx;
     uv_close((uv_handle_t *)ctx->networking_ctx.socket,on_disconnect);
 }
