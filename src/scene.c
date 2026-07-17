@@ -6,7 +6,6 @@
 #include "include/update.h"
 
 
-
 void scene_select(app_ctx *ctx){
     switch (ctx->scene_ctx.scene_num) {
     

@@ -47,6 +47,7 @@ void update_game(app_ctx *ctx){
 
     if (button_clicked(&ctx->btn_arr_game->btn[0], get_mouse_coords(ctx), ctx)){
             printf("going back\n");
+            network_disconnect(ctx);
             change_scene(main_menu_scene, ctx);
         }
     network_run(ctx);
