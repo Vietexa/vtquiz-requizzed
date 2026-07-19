@@ -1,9 +1,10 @@
 #include "include/app_context.h"
 #include "include/scene.h"
 #include "include/button.h"
-#include "include/draw.h"
 #include "include/init.h"
-#include "include/update.h"
+#include "include/main_menu.h"
+#include "include/game.h"
+
 
 
 void scene_select(app_ctx *ctx){

@@ -1,7 +1,6 @@
 
 #include "include/button.h"
 #include "include/init.h"
-#include "include/draw.h"
 #include "include/scene.h"
 #include "include/cleanup.h"
 #include "include/app_context.h"

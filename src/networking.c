@@ -2,6 +2,7 @@
 #include "include/app_context.h"
 #include "include/button.h"
 #include "include/scene.h"
+#include "include/parser.h"
 #include "uv.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -70,6 +71,10 @@ static void read_data(uv_stream_t *server, ssize_t nread, const uv_buf_t *buf)
         return;
     }
 
+    printf("Received (%zd bytes): '%.*s'\n",
+       nread, (int)nread, buf->base);
+
+
     if ((size_t)nread > capacity - *size) {
         fprintf(stderr, "message too large\n");
         free(buf->base);
@@ -87,6 +92,8 @@ static void read_data(uv_stream_t *server, ssize_t nread, const uv_buf_t *buf)
         size_t message_size = (size_t)(newline - read_buf);
 
         printf("%.*s\n", (int)message_size, read_buf);
+        parse_packet(read_buf, message_size, &ctx->parsing_ctx);
+        
 
         size_t consumed = message_size + 1;
         *size -= consumed;

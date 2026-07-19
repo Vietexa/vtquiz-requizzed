@@ -7,8 +7,8 @@ set(BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 add_subdirectory(vendor/raylib)
 add_subdirectory(vendor/libuv)
 
-add_executable(${PROJECT_NAME} src/main.c src/draw.c src/init.c src/update.c src/utils.c
-src/button.c src/cleanup.c src/scene.c src/networking.c)
+add_executable(${PROJECT_NAME} src/main.c src/init.c src/utils.c
+src/button.c src/cleanup.c src/scene.c src/networking.c src/main_menu.c src/game.c src/parser.c)
 
 # default compile options
 target_compile_options(online_quiz PRIVATE -Wall -Wextra -Wpedantic)
