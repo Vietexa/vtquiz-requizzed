@@ -10,6 +10,7 @@
 
 
 static void alloc_buffer(uv_handle_t* handle, size_t suggested_size, uv_buf_t* buf) {
+    (void)handle; // make the warning shut up
     buf->base = malloc(suggested_size);
     buf->len = suggested_size;
 }
@@ -91,8 +92,16 @@ static void read_data(uv_stream_t *server, ssize_t nread, const uv_buf_t *buf)
     while ((newline = memchr(read_buf, '\n', *size)) != NULL) {
         size_t message_size = (size_t)(newline - read_buf);
 
-        printf("%.*s\n", (int)message_size, read_buf);
-        parse_packet(read_buf, message_size, &ctx->parsing_ctx);
+        *newline = '\0'; // make the newline the null terminator so you can parse the packet later
+
+        printf("Packet: %s\n", read_buf);
+       
+        if(!parse_packet(read_buf, message_size, &ctx->parsing_ctx)){
+            fprintf(stderr, "Couldn't parse packet!\n");
+       }
+        else{
+            // todo: implement handler logic
+        }
         
 
         size_t consumed = message_size + 1;
